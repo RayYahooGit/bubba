@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    resource_group: table1rkansiblerg
+    webapp_name: table1webapp
+    location: westus
+  tasks:
+    - name: Need an RG
+      azure_rm_resourcegroup:
+        name: "{{ resource_group }}"
+        location: "{{ location }}"
+    - name: How about a webapp
+      azure_rm_webapp:
+        resource_group: "{{ resource_group }}"
+        name: "{{ webapp_name }}"
+        plan:
+          resource_group: "{{ resource_group }}"
+          name: table1rkappplan
+          is_linux: true
+          sku: S1
+          number_of_workers: 1
+        deployment_source:
+          url: https://github.com/jwkidd3/slots
+          branch: master
+
+

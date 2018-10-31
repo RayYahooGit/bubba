@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  connection: local
+  tasks: 
+    - name: Delete resource
+      azure_rm_resourcegroup:
+        name: table1rkansiblerg
+        state: absent
+        force: true
+
